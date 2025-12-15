@@ -1,0 +1,28 @@
+<div class="container">
+    <form [formGroup]="departmentForm" (submit)="add(departmentForm)">
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="name"
+                       placeholder="Name"
+                />
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="description"
+                       placeholder="Description"
+                />
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="code"
+                       placeholder="Code"
+                />
+            </mat-form-field>
+        </div>
+    </form>
+</div>
