@@ -1,0 +1,92 @@
+<div class="container">
+    <form [formGroup]="employeeForm" (submit)="saveEmployee(employeeForm)">
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="name"
+                       placeholder="Name"
+                />
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="code"
+                       placeholder="Code"
+                />
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="salary"
+                       placeholder="Salary"
+                />
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <mat-label>Select Department</mat-label>
+                <mat-select>
+                    @for (department of departments; track department.id) {
+                        <mat-option value="one">{{department.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       formControlName="mobile"
+                       placeholder="Mobile"
+                />
+            </mat-form-field>
+        </div>
+
+        <div class="field">
+            <mat-card>
+                <mat-card-title>Upload Image</mat-card-title>
+
+                <input
+                    type="file"
+                    #fileInput
+                    hidden
+                    accept="image/*"
+                    (change)="onFileSelected($event)"
+                />
+
+                <button mat-raised-button color="primary" (click)="fileInput.click()">
+                    <mat-icon>upload</mat-icon>
+                    Choose Image
+                </button>
+
+                <div *ngIf="previewUrl" style="margin-top: 16px">
+                    <img
+                        [src]="previewUrl"
+                        width="200"
+                        style="border-radius: 8px"
+                    />
+                </div>
+
+                <mat-progress-bar
+                    *ngIf="uploadProgress >= 0"
+                    mode="determinate"
+                    [value]="uploadProgress"
+                    style="margin-top: 16px">
+                </mat-progress-bar>
+
+                <!--                <button-->
+                <!--                    mat-stroked-button-->
+                <!--                    color="accent"-->
+                <!--                    (click)="upload()"-->
+                <!--                    [disabled]="!selectedFile"-->
+                <!--                    style="margin-top: 16px">-->
+                <!--                    Upload-->
+                <!--                </button>-->
+            </mat-card>
+        </div>
+
+        <button class="button" mat-flat-button>Save</button>
+    </form>
+</div>
+<p>add-employee works!</p>

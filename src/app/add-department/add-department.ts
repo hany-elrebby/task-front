@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Department} from '../model/Department';
-import {MatFormField} from '@angular/material/types/_form-field-chunk';
-import {MatInput} from '@angular/material/types/input';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
 @Component({
   selector: 'app-add-department',
     imports: [
         ReactiveFormsModule,
-        MatFormField,
-        MatInput
+        MatFormFieldModule,
+        MatInput,
+        MatButton
     ],
   templateUrl: './add-department.html',
   styleUrl: './add-department.css',
