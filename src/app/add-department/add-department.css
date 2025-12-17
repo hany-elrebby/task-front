@@ -4,26 +4,31 @@ mat-error {
 form {
     position: absolute;
     display: flex;
-    width: 33%;
+    width: 70%;
     flex-direction: column;
     background: white;
     align-items: center;
-    justify-content: center;
     padding: 0 15px;
-    height: 90%;
-    top: 6%;
+    height: 45%;
+    top: 25%;
     border-radius: 3px;
     border: 1px #eeeded solid;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.username {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 5px;
+    width: 100%;
 }
 
 
 .button {
     display: flex;
-    width: 100%;
+    text-align: left;
 }
 .button button {
-    width: 100%;
+
 }
 mat-form-field {
     width: 100%;

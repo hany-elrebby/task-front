@@ -4,6 +4,7 @@ import {Department} from '../model/Department';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-add-department',
     imports: [
@@ -17,7 +18,7 @@ import {MatButton} from '@angular/material/button';
 })
 export class AddDepartment implements OnInit {
     departmentForm!: FormGroup;
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     }
 
     ngOnInit(): void {
@@ -30,6 +31,10 @@ export class AddDepartment implements OnInit {
 
     add(departmentForm: FormGroup): void {
         const department = this.departmentForm.value as Department;
+        this.http.post('http://localhost:8080/departments', department)
+            .subscribe((res) => {
+                console.log(res)
+            })
         console.log(department);
     }
 }

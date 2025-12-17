@@ -1,12 +1,23 @@
 <div class="container">
+    <h2>Add Department</h2>
     <form [formGroup]="departmentForm" (submit)="add(departmentForm)">
-        <div class="field">
-            <mat-form-field appearance="outline">
-                <input matInput
-                       formControlName="name"
-                       placeholder="Name"
-                />
-            </mat-form-field>
+        <div class="username">
+            <div class="field" style="margin-right: 100px;">
+                <mat-form-field appearance="outline">
+                    <input matInput
+                           formControlName="name"
+                           placeholder="Name"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <input matInput
+                           formControlName="code"
+                           placeholder="Code"
+                    />
+                </mat-form-field>
+            </div>
         </div>
         <div class="field">
             <mat-form-field appearance="outline">
@@ -16,14 +27,7 @@
                 />
             </mat-form-field>
         </div>
-        <div class="field">
-            <mat-form-field appearance="outline">
-                <input matInput
-                       formControlName="code"
-                       placeholder="Code"
-                />
-            </mat-form-field>
-        </div>
+
 
         <button class="button" mat-flat-button>Save</button>
     </form>

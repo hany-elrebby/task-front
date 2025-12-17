@@ -1,4 +1,5 @@
 <div class="container">
+    <h2>Add Employee</h2>
     <form [formGroup]="employeeForm" (submit)="saveEmployee()">
         <div class="username">
             <div class="field">
@@ -29,34 +30,31 @@
             </div>
             <div class="field">
                 <mat-form-field appearance="outline">
-                    <mat-label>Select Department</mat-label>
-                    <mat-select>
-                        @for (department of departments; track department.id) {
-                            <mat-option value="one">{{department.name}}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div class="username">
-            <div class="field">
-                <mat-form-field appearance="outline">
                     <input matInput
                            formControlName="mobile"
                            placeholder="Mobile"
                     />
                 </mat-form-field>
             </div>
-            <div class="field">
-                <mat-form-field appearance="outline">
-                    <input matInput
-                           formControlName="address"
-                           placeholder="State, City, Street"
-                           (input)="onAddressInput($event)"
-                    />
-                </mat-form-field>
-            </div>
+        </div>
+
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <mat-label>Select Department</mat-label>
+                <mat-select formControlName="departmentId">
+                    @for (department of departments; track department.id) {
+                        <mat-option [value]="department.id">{{department.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       placeholder="State, City, Street"
+                       (input)="onAddressInput($event)"
+                />
+            </mat-form-field>
         </div>
         <div class="field">
             <input

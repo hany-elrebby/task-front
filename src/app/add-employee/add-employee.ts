@@ -43,11 +43,22 @@ export class AddEmployee implements OnInit {
             code: [null, [Validators.required]],
             name: [null, [Validators.required]],
             dateOfBirth: [null, [Validators.required]],
-            address: [null, [Validators.required]],
+            addressDto: this.formBuilder.group({
+                country: [''],
+                state: [''],
+                city: [''],
+                street: [''],
+                postalCode: ['']
+            }),
             mobile: [null, [Validators.required]],
             salary: [null, [Validators.required]],
-            department: [null, [Validators.required]],
+            departmentId: [null, [Validators.required]],
         });
+
+
+        this.http.get('http://localhost:8080/departments').subscribe((res) => {
+            this.departments = res as Department[]
+        })
     }
 
     onFileSelected(event: Event) {
@@ -91,9 +102,14 @@ export class AddEmployee implements OnInit {
 
 
         formData.append('image', this.selectedFile);
-        this.employeeForm.setControl("address", this.address);
+
+        this.employeeForm.patchValue({
+            address: this.address
+        });
 
         const employee = this.employeeForm.value as Employee;
+
+        console.log(employee)
 
         formData.append("employee", new Blob([JSON.stringify(employee)], {
             type: 'application/json',

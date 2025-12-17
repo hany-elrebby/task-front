@@ -12,7 +12,7 @@ mat-error {
 form {
     position: absolute;
     display: flex;
-    width: 50%;
+    width: 55%;
     flex-direction: column;
     background: white;
     align-items: center;
@@ -38,8 +38,8 @@ mat-form-field {
 }
 .field {
     display: flex;
-    width: 50%;
-    margin: 0 10px;
+    width: 100%;
+    margin: 20px 10px;
 }
 .container {
     width: 100%;

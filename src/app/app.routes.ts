@@ -3,6 +3,8 @@ import {AddDepartment} from './add-department/add-department';
 import {Department} from './department/department';
 import {DepartmentList} from './department-list/department-list';
 import {AddEmployee} from './add-employee/add-employee';
+import {EmployeeList} from './employee-list/employee-list';
+import {Employee} from './employee/employee';
 
 export const routes: Routes = [
     {
@@ -22,11 +24,11 @@ export const routes: Routes = [
         path: 'employees/add',
     },
     {
-        component: Department,
+        component: Employee,
         path: 'employees/:id',
     },
     {
-        component: DepartmentList,
+        component: EmployeeList,
         path: 'employees',
     },
 ];
