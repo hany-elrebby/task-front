@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
-import {Employee} from '../model/Employee';
 import {MatSelectModule} from '@angular/material/select';
 import {Department} from '../model/Department';
 import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
+import {Employee} from '../model/Employee';
+import {Address} from '../model/Address';
 
 @Component({
   selector: 'app-add-employee',
@@ -32,7 +33,6 @@ export class AddEmployee implements OnInit {
     departments: Department[] = []
 
     selectedFile?: File;
-    previewUrl?: string;
     uploadProgress = -1;
 
     constructor(private formBuilder: FormBuilder, private http: HttpClient) {
@@ -47,13 +47,7 @@ export class AddEmployee implements OnInit {
             mobile: [null, [Validators.required]],
             salary: [null, [Validators.required]],
             department: [null, [Validators.required]],
-            image: [null, [Validators.required]],
         });
-    }
-
-    saveEmployee(employeeForm: FormGroup): void {
-        const employee = this.employeeForm.value as Employee;
-        console.log(employee);
     }
 
     onFileSelected(event: Event) {
@@ -64,32 +58,56 @@ export class AddEmployee implements OnInit {
         }
 
         this.selectedFile = input.files[0];
-
-        // Preview
-        const reader = new FileReader();
-        reader.onload = () => this.previewUrl = reader.result as string;
-        reader.readAsDataURL(this.selectedFile);
+        console.log(this.selectedFile);
     }
 
-    upload() {
-        if (!this.selectedFile) return;
+    address!: Address;
+    onAddressInput(event: Event): void {
+        const value = (event.target as HTMLInputElement).value;
+
+        const [state, city, street] = value
+            .split(',')
+            .map(v => v.trim());
+
+        const address: Address = {
+            country: street || '',
+            state: state || '',
+            city: city || '',
+            street: street || '',
+            postalCode: street || '',
+        };
+
+        this.address = address;
+
+        console.log(address);
+    }
+
+    saveEmployee(): void {
+        if (!this.selectedFile) {
+            return;
+        }
 
         const formData = new FormData();
+
+
         formData.append('image', this.selectedFile);
+        this.employeeForm.setControl("address", this.address);
 
-        this.http.post('http://localhost:8080/api/upload', formData, {
-            reportProgress: true,
-            observe: 'events'
-        }).subscribe((event: HttpEvent<any>) => {
+        const employee = this.employeeForm.value as Employee;
 
-            if (event.type === HttpEventType.UploadProgress && event.total) {
-                this.uploadProgress = Math.round(100 * event.loaded / event.total);
-            }
+        formData.append("employee", new Blob([JSON.stringify(employee)], {
+            type: 'application/json',
+        }))
 
-            if (event.type === HttpEventType.Response) {
-                this.uploadProgress = -1;
-                console.log('Upload complete', event.body);
-            }
-        });
+        this.http.post('http://localhost:8080/employees', formData)
+            .subscribe({
+                next: res => {
+                    console.log('Employee saved successfully', res);
+                },
+                error: err => {
+                    console.error('Error saving employee', err);
+                }
+            });
     }
+
 }
