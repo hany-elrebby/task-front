@@ -1,0 +1,113 @@
+<div class="container">
+    <h2>Add Employee</h2>
+    <form [formGroup]="employeeForm" (submit)="saveEmployee()">
+        <div class="username">
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <input matInput
+                           formControlName="name"
+                           placeholder="Name"
+                    />
+                    @if (employeeForm.get('name')?.invalid || employeeForm.get('name')?.touched ) {
+                        <mat-error>
+                            Name is required.
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <input matInput
+                           formControlName="code"
+                           placeholder="Code"
+                    />
+                    @if (employeeForm.get('code')?.invalid || employeeForm.get('code')?.touched ) {
+                        <mat-error>
+                            Code is required.
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="username">
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <input matInput
+                           type="number"
+                           formControlName="salary"
+                           placeholder="Salary"
+                    />
+                    @if (employeeForm.get('salary')?.invalid || employeeForm.get('salary')?.touched ) {
+                        <mat-error>
+                            Salary is required.
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <input matInput
+                           formControlName="mobile"
+                           placeholder="Mobile"
+                    />
+                    @if (employeeForm.get('mobile')?.invalid || employeeForm.get('mobile')?.touched ) {
+                        <mat-error>
+                            Mobile is required.
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <mat-label>Select Department</mat-label>
+                <mat-select formControlName="departmentId">
+                    @for (department of departments; track department.id) {
+                        <mat-option [value]="department.id">{{department.name}}</mat-option>
+                    }
+                </mat-select>
+                @if (employeeForm.get('departmentId')?.invalid || employeeForm.get('departmentId')?.touched ) {
+                    <mat-error>
+                        Department is required.
+                    </mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <mat-form-field appearance="outline">
+                <input matInput
+                       placeholder="State, City, Street"
+                       (input)="onAddressInput($event)"
+                />
+                @if (employeeForm.get('addressDto')?.invalid || employeeForm.get('addressDto')?.touched ) {
+                    <mat-error>
+                        Address is required.
+                    </mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="field">
+            <input
+                type="file"
+                #fileInput
+                hidden
+                accept="image/*"
+                (change)="onFileSelected($event)"
+            />
+            <button mat-raised-button color="primary" (click)="fileInput.click()">
+                <mat-icon>upload</mat-icon>
+                Choose Image
+            </button>
+            @if (employeeForm.get('image')?.invalid || employeeForm.get('image')?.touched ) {
+                <mat-error>
+                    Image is required.
+                </mat-error>
+            }
+        </div>
+
+
+
+        <button class="button" mat-flat-button>Save</button>
+    </form>
+</div>

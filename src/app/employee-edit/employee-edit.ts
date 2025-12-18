@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
+import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Employee } from '../model/Employee';
 import {MatButton} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
+import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatIcon, MatIconModule} from '@angular/material/icon';
+import {MatOption} from '@angular/material/core';
+import {MatSelect, MatSelectModule} from '@angular/material/select';
 import {Department} from '../model/Department';
-import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatIconModule} from '@angular/material/icon';
-import {Employee} from '../model/Employee';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Address} from '../model/Address';
-import {Route} from '@angular/router';
-import { Router } from '@angular/router';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 @Component({
-  selector: 'app-add-employee',
+  selector: 'app-employee-edit',
     imports: [
         FormsModule,
         MatButton,
@@ -25,21 +26,21 @@ import { Router } from '@angular/router';
         MatCardModule,
         MatProgressBarModule,
         MatIconModule
+
     ],
-  templateUrl: './add-employee.html',
-  styleUrl: './add-employee.css',
+  templateUrl: './employee-edit.html',
+  styleUrl: './employee-edit.css',
 })
-export class AddEmployee implements OnInit {
+export class EmployeeEdit implements OnInit{
     employeeForm!: FormGroup;
     departments: Department[] = []
-
     selectedFile?: File;
 
     constructor(private formBuilder: FormBuilder,
-                private http: HttpClient, private router: Router) {
+                private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.employeeForm = this.formBuilder.group({
             code: [null, [Validators.required]],
             name: [null, [Validators.required]],
@@ -57,9 +58,22 @@ export class AddEmployee implements OnInit {
         });
 
 
-        this.http.get('http://localhost:8080/departments').subscribe((res) => {
-            this.departments = res as Department[]
+        this.loadDepartments()
+
+        const id = this.route.snapshot.paramMap.get('id')
+
+        this.http.get(`http://localhost:8080/employees/${id}`).subscribe((res) => {
+            console.log(res)
+            this.employeeForm.patchValue(res)
         })
+    }
+
+    loadDepartments(): void {
+        this.http.get<Department[]>('http://localhost:8080/departments')
+            .subscribe({
+                next: (res) => this.departments = res,
+                error: (err) => console.error('Department load failed', err)
+            });
     }
 
     onFileSelected(event: Event) {
@@ -81,7 +95,7 @@ export class AddEmployee implements OnInit {
             .split(',')
             .map(v => v.trim());
 
-        const address: Address = {
+        let address: Address = {
             state: state || '',
             city: city || '',
             street: street || '',
@@ -113,8 +127,8 @@ export class AddEmployee implements OnInit {
         formData.append("employee", new Blob([JSON.stringify(employee)], {
             type: 'application/json',
         }))
-
-        this.http.post('http://localhost:8080/employees', formData)
+        const id = this.route.snapshot.paramMap.get('id')
+        this.http.put(`http://localhost:8080/employees/${id}`, formData)
             .subscribe({
                 next: res => {
                     console.log('Employee saved successfully', res);

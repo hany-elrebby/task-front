@@ -7,16 +7,17 @@ table {
     margin: 15px;
     width: 50%;
 }
+
+
+
 .container {
     width: 80%;
-    display: block;
-    justify-content: center;  /* center horizontally */
-    background: #f6f6f6;
     position: absolute;
+    background: #f6f6f6;
     left: 50%;
-    top: 35%;
+    top: 50%;
+    min-height: 50%;
     transform: translate(-50%, -50%);
-
 }
 .demo-table {
     width: 100%;

@@ -13,7 +13,7 @@ table {
     background: #f6f6f6;
     left: 50%;
     top: 40%;
-    min-height: 30%;
+    min-height: 50%;
     transform: translate(-50%, -50%);
 
 }

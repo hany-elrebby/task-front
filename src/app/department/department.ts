@@ -16,12 +16,9 @@ import {Department} from '../model/Department';
 @Component({
     selector: 'app-department',
     imports: [
-        DatePipe,
         MatCard,
-        MatCardAvatar,
         MatCardContent,
         MatCardHeader,
-        MatCardSubtitle,
         MatCardTitle,
         MatDivider
     ],
