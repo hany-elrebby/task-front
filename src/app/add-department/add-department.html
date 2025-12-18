@@ -8,6 +8,11 @@
                            formControlName="name"
                            placeholder="Name"
                     />
+                    @if (departmentForm.get('name')?.invalid || departmentForm.get('name')?.touched ) {
+                        <mat-error>
+                            Name is required.
+                        </mat-error>
+                    }
                 </mat-form-field>
             </div>
             <div class="field">
@@ -16,6 +21,11 @@
                            formControlName="code"
                            placeholder="Code"
                     />
+                    @if (departmentForm.get('code')?.invalid || departmentForm.get('code')?.touched ) {
+                        <mat-error>
+                            Code is required.
+                        </mat-error>
+                    }
                 </mat-form-field>
             </div>
         </div>
@@ -25,10 +35,15 @@
                        formControlName="description"
                        placeholder="Description"
                 />
+                @if (departmentForm.get('description')?.invalid || departmentForm.get('description')?.touched ) {
+                    <mat-error>
+                        Description is required.
+                    </mat-error>
+                }
             </mat-form-field>
         </div>
 
 
-        <button class="button" mat-flat-button>Save</button>
+        <button mat-flat-button [disabled]="departmentForm.invalid" class="button" >Save</button>
     </form>
 </div>

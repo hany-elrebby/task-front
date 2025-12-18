@@ -1,1 +1,22 @@
-<p>department works!</p>
+@if (department) {
+    <mat-card class="employee-card">
+        <mat-card-header>
+            <mat-card-title><h3>{{ department.name }}</h3></mat-card-title>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+
+            <div class="row">
+                <span class="label">Code</span>
+                <span>{{ department.code }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Description</span>
+                <span>{{ department.description }}</span>
+            </div>
+        </mat-card-content>
+    </mat-card>
+}

@@ -1,3 +1,5 @@
+import {Address} from './Address';
+
 export interface Employee {
     id: number;
     name: string;
@@ -6,5 +8,6 @@ export interface Employee {
     department: string;
     salary: number;
     dateOfBirth: Date;
-    image: number[]
+    image: number[];
+    addressDto: Address;
 }

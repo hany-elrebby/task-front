@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import {AddDepartment} from './add-department/add-department';
-import {Department} from './department/department';
+import {DepartmentDetail} from './department/department';
 import {DepartmentList} from './department-list/department-list';
 import {AddEmployee} from './add-employee/add-employee';
 import {EmployeeList} from './employee-list/employee-list';
-import {Employee} from './employee/employee';
+import {EmployeeDetails} from './employee/employee-detail';
 
 export const routes: Routes = [
     {
@@ -12,7 +12,7 @@ export const routes: Routes = [
         path: 'departments/add',
     },
     {
-        component: Department,
+        component: DepartmentDetail,
         path: 'departments/:id',
     },
     {
@@ -24,7 +24,7 @@ export const routes: Routes = [
         path: 'employees/add',
     },
     {
-        component: Employee,
+        component: EmployeeDetails,
         path: 'employees/:id',
     },
     {

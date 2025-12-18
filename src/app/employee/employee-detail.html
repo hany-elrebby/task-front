@@ -1,0 +1,44 @@
+@if (employee) {
+    <mat-card class="employee-card">
+        <mat-card-header>
+            <div mat-card-avatar class="avatar">
+                @if (imageSource) {
+                    <img [src]="imageSource" />
+                }
+            </div>
+            <mat-card-title>{{ employee.name }}</mat-card-title>
+            <mat-card-subtitle>Code: {{ employee.code }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+
+            <div class="row">
+                <span class="label">Date of Birth</span>
+                <span>{{ employee.dateOfBirth | date:'dd/MM/yyyy' }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Address</span>
+                <span>{{ employee.addressDto.country }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Mobile</span>
+                <span>{{ employee.mobile }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Salary</span>
+                <span>{{ employee.salary | number:'1.2-2' }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Department</span>
+                <span>{{ employee.department}}</span>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+}

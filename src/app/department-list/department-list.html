@@ -1,1 +1,48 @@
-<p>department-list works!</p>
+<div class="searchContainer">
+    <mat-form-field appearance="outline">
+        <mat-icon matPrefix class="search-icon">search</mat-icon>
+        <input matInput (keyup)="applyFilter($event)" />
+    </mat-form-field>
+</div>
+
+<div class="container">
+    <table mat-table [dataSource]="departments" class="mat-elevation-z8 demo-table">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef> Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Department Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let department">
+                <button mat-icon-button color="primary" (click)="updateDepartment(department.id)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteDepartment(department.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

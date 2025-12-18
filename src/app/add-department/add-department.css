@@ -4,21 +4,18 @@ mat-error {
 form {
     position: absolute;
     display: flex;
-    width: 70%;
+    width: 45%;
     flex-direction: column;
     background: white;
-    align-items: center;
-    padding: 0 15px;
-    height: 45%;
+    padding: 40px 15px;
+    height: 35%;
     top: 25%;
-    border-radius: 3px;
+    border-radius: 20px;
     border: 1px #eeeded solid;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .username {
     display: flex;
-    justify-content: space-between;
-    margin: 0 5px;
     width: 100%;
 }
 
@@ -26,10 +23,14 @@ form {
 .button {
     display: flex;
     text-align: left;
+    height: 55px;
+    border-radius: 3px;
 }
 .button button {
-
+    border: none;
+    height: 50px;
 }
+
 mat-form-field {
     width: 100%;
 }

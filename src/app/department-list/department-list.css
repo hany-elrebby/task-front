@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+    background: #f6f6f6;
+    left: 15%;
+}
+.searchContainer {
+    margin: 15px;
+    width: 50%;
+}
+.container {
+    width: 80%;
+    position: absolute;
+    background: #f6f6f6;
+    left: 50%;
+    top: 40%;
+    min-height: 30%;
+    transform: translate(-50%, -50%);
+
+}
+.demo-table {
+    width: 100%;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+    font-weight: bold;
+}

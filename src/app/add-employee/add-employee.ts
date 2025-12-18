@@ -11,7 +11,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
 import {Employee} from '../model/Employee';
 import {Address} from '../model/Address';
-
+import {Route} from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-employee',
     imports: [
@@ -35,7 +36,8 @@ export class AddEmployee implements OnInit {
     selectedFile?: File;
     uploadProgress = -1;
 
-    constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+    constructor(private formBuilder: FormBuilder,
+                private http: HttpClient, private router: Router) {
     }
 
     ngOnInit() {
@@ -104,7 +106,7 @@ export class AddEmployee implements OnInit {
         formData.append('image', this.selectedFile);
 
         this.employeeForm.patchValue({
-            address: this.address
+            addressDto: this.address
         });
 
         const employee = this.employeeForm.value as Employee;
@@ -119,6 +121,7 @@ export class AddEmployee implements OnInit {
             .subscribe({
                 next: res => {
                     console.log('Employee saved successfully', res);
+                    this.router.navigate([`/employees/${res}`]);
                 },
                 error: err => {
                     console.error('Error saving employee', err);

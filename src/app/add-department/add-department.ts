@@ -5,6 +5,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {HttpClient} from '@angular/common/http';
+import {MatCard} from '@angular/material/card';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-add-department',
     imports: [
@@ -18,7 +20,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AddDepartment implements OnInit {
     departmentForm!: FormGroup;
-    constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+    constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -33,7 +35,7 @@ export class AddDepartment implements OnInit {
         const department = this.departmentForm.value as Department;
         this.http.post('http://localhost:8080/departments', department)
             .subscribe((res) => {
-                console.log(res)
+                this.router.navigate([`/departments/${res}`]);
             })
         console.log(department);
     }
