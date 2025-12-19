@@ -16,7 +16,7 @@ a {
     position: absolute;
     background: white;
     left: 50%;
-    top: 45%;
+    top: 60%;
     min-height: 50%;
     transform: translate(-50%, -50%);
 }

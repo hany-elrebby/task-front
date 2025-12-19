@@ -9,8 +9,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 export const appConfig: ApplicationConfig = {
   providers: [
       provideHttpClient(withFetch()),
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), provideClientHydration(withEventReplay()),
+      provideBrowserGlobalErrorListeners(),
+      provideRouter(routes),
+      provideClientHydration(withEventReplay()),
       importProvidersFrom(MatSnackBarModule)
   ]
 };

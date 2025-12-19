@@ -83,7 +83,12 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/employees', row.id]"></tr>
+        <tr mat-row
+            *matRowDef="let row; columns: displayedColumns;"
+            (click)="openDetails(row.id)"
+            class="row-clickable"
+            tabindex="0">
+        ></tr>
     </table>
 
     <mat-paginator

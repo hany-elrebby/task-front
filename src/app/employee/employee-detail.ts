@@ -41,8 +41,15 @@ export class EmployeeDetails implements OnInit {
     }
 
     ngOnInit(): void {
-        const id = this.route.snapshot.paramMap.get('id');
+        this.route.paramMap.subscribe(params => {
+            const id = params.get('id');
+            if (id) {
+                this.loadEmployee(id);
+            }
+        });
+    }
 
+    loadEmployee(id: string | number) {
         this.http.get<any>(`http://localhost:8080/employees/${id}`)
             .subscribe(res => {
                 this.employee = res as Employee;

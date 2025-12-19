@@ -6,8 +6,13 @@ import {AddEmployee} from './add-employee/add-employee';
 import {EmployeeList} from './employee-list/employee-list';
 import {EmployeeDetails} from './employee/employee-detail';
 import {EmployeeEdit} from './employee-edit/employee-edit';
+import {Home} from './home/home';
 
 export const routes: Routes = [
+    {
+        component: Home,
+        path: '',
+    },
     {
         component: AddDepartment,
         path: 'departments/add',

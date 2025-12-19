@@ -32,16 +32,18 @@ export class EmployeeList implements OnInit {
 
     updateEmployee(id: number) {
         console.log('Update', id);
-        this.router.navigate(['employees/edit/'+id]);
+        this.router.navigate(['http://localhost:8080/employees/'+id]);
     }
 
     deleteEmployee(id: number) {
         console.log('Delete', id);
-        this.http.delete(`employees/${id}`).subscribe(() => {
+        this.http.delete(`http:/${id}`).subscribe(() => {
             console.log('Deleting employee with ', id);
         })
     }
-
+    openDetails(id: number) {
+        this.router.navigate(['/employees', id]);
+    }
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.employees.filter = filterValue.trim().toLowerCase();
