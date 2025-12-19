@@ -1,6 +1,9 @@
 mat-error {
     color: red;
 }
+h2 {
+    color: #860c86
+}
 form {
     position: absolute;
     display: flex;
@@ -10,9 +13,9 @@ form {
     padding: 40px 15px;
     height: 35%;
     top: 25%;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px #eeeded solid;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 .username {
     display: flex;
@@ -43,7 +46,7 @@ mat-form-field {
     display: flex;
     height: 100vh;
     justify-content: center;  /* center horizontally */
-    background: #eeeded;
+    background: white;
 }
 mat-form-field {
     border-radius: 10px !important;

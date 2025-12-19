@@ -1,28 +1,34 @@
 table {
     width: 100%;
-    background: #f6f6f6;
+    background: white;
     left: 15%;
 }
 .searchContainer {
     margin: 15px;
-    width: 50%;
+    width: 100%;
+    display: flex;
 }
-
-
-
+a {
+    color: #860c86;
+}
 .container {
     width: 80%;
     position: absolute;
-    background: #f6f6f6;
+    background: white;
     left: 50%;
-    top: 50%;
+    top: 45%;
     min-height: 50%;
     transform: translate(-50%, -50%);
+}
+.mat-mdc-paginator-outer-container {
+    background: #fff;
 }
 .demo-table {
     width: 100%;
 }
-
+.example-spacer {
+    flex: 1 1 auto;
+}
 .mat-mdc-row .mat-mdc-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;

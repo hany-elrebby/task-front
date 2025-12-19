@@ -1,9 +1,14 @@
 .employee-card {
     max-width: 65%;
     margin: 24px auto;
+    background-color: white;
+}
+.example-spacer {
+    flex: 1 1 auto;
 }
 mat-card-header {
     height: 120px;
+    display: flex;
 }
 mat-card-title {
     margin-left: 50px;

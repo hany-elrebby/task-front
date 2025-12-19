@@ -13,6 +13,7 @@ import {Employee} from '../model/Employee';
 import {Address} from '../model/Address';
 import {Route} from '@angular/router';
 import { Router } from '@angular/router';
+import {Notification} from '../notification';
 @Component({
   selector: 'app-add-employee',
     imports: [
@@ -35,7 +36,7 @@ export class AddEmployee implements OnInit {
 
     selectedFile?: File;
 
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: FormBuilder, private notification: Notification,
                 private http: HttpClient, private router: Router) {
     }
 
@@ -45,11 +46,10 @@ export class AddEmployee implements OnInit {
             name: [null, [Validators.required]],
             dateOfBirth: [null, [Validators.required]],
             addressDto: this.formBuilder.group({
-                country: [''],
-                state: [''],
-                city: [''],
-                street: [''],
-                postalCode: ['']
+                id: [null, [Validators.required]],
+                state: ['', [Validators.required]],
+                city: ['', Validators.required],
+                street: ['', Validators.required],
             }),
             mobile: [null, [Validators.required]],
             salary: [null, [Validators.required]],
@@ -113,15 +113,28 @@ export class AddEmployee implements OnInit {
         formData.append("employee", new Blob([JSON.stringify(employee)], {
             type: 'application/json',
         }))
-
+        console.log(this.employeeForm.value)
         this.http.post('http://localhost:8080/employees', formData)
             .subscribe({
                 next: res => {
                     console.log('Employee saved successfully', res);
+                    this.notification.success('Employee saved successfully');
                     this.router.navigate([`/employees/${res}`]);
                 },
-                error: err => {
-                    console.error('Error saving employee', err);
+                error: (err) => {
+                    if (err.error instanceof Blob) {
+                        const reader = new FileReader();
+
+                        reader.onload = () => {
+                            const errorResponse = JSON.parse(reader.result as string);
+                            console.error('Backend error:', errorResponse);
+                            this.notification.error(errorResponse.message);
+                        };
+
+                        reader.readAsText(err.error);
+                    } else {
+                        this.notification.error(err.error?.message || 'Unexpected error');
+                    }
                 }
             });
     }

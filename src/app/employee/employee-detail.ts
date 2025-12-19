@@ -5,6 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import {Employee} from '../model/Employee';
 import {DatePipe, DecimalPipe} from '@angular/common';
+import {MatIcon} from "@angular/material/icon";
+import {MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-employee',
@@ -12,7 +14,9 @@ import {DatePipe, DecimalPipe} from '@angular/common';
         MatCardModule,
         MatDividerModule,
         DecimalPipe,
-        DatePipe
+        DatePipe,
+        MatIcon,
+        MatIconButton
     ],
   templateUrl: './employee-detail.html',
   styleUrl: './employee-detail.css',
@@ -21,7 +25,19 @@ export class EmployeeDetails implements OnInit {
     employee?: Employee
     imageSource?: string;
 
-    constructor(private route: ActivatedRoute, private http: HttpClient) {
+    constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
+    }
+
+    updateEmployee(id: number) {
+        console.log('Update', id);
+        this.router.navigate(['employees/edit/'+id]);
+    }
+
+    deleteEmployee(id: number) {
+        console.log('Delete', id);
+        this.http.delete(`employees/${id}`).subscribe(() => {
+            console.log('Deleting employee with ', id);
+        })
     }
 
     ngOnInit(): void {

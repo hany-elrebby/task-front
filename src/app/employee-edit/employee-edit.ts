@@ -13,6 +13,7 @@ import {Address} from '../model/Address';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {Notification} from '../notification';
 
 @Component({
   selector: 'app-employee-edit',
@@ -35,8 +36,8 @@ export class EmployeeEdit implements OnInit{
     employeeForm!: FormGroup;
     departments: Department[] = []
     selectedFile?: File;
-
-    constructor(private formBuilder: FormBuilder,
+    addressText!: string;
+    constructor(private formBuilder: FormBuilder, private notification: Notification,
                 private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     }
 
@@ -46,11 +47,10 @@ export class EmployeeEdit implements OnInit{
             name: [null, [Validators.required]],
             dateOfBirth: [null, [Validators.required]],
             addressDto: this.formBuilder.group({
-                country: [''],
-                state: [''],
-                city: [''],
-                street: [''],
-                postalCode: ['']
+                id: [null, [Validators.required]],
+                state: [null, [Validators.required]],
+                city: [null, [Validators.required]],
+                street: [null, [Validators.required]],
             }),
             mobile: [null, [Validators.required]],
             salary: [null, [Validators.required]],
@@ -62,9 +62,15 @@ export class EmployeeEdit implements OnInit{
 
         const id = this.route.snapshot.paramMap.get('id')
 
-        this.http.get(`http://localhost:8080/employees/${id}`).subscribe((res) => {
+        this.http.get<any>(`http://localhost:8080/employees/${id}`).subscribe((res) => {
             console.log(res)
             this.employeeForm.patchValue(res)
+
+            if (res.addressDto) {
+                const { state, city, street } = res.addressDto;
+                this.addressText = `${state}, ${city}, ${street}`;
+                this.address = res.addressDto; // keep object in sync
+            }
         })
     }
 
@@ -107,14 +113,11 @@ export class EmployeeEdit implements OnInit{
     }
 
     saveEmployee(): void {
-        if (!this.selectedFile) {
-            return;
-        }
-
         const formData = new FormData();
 
-
-        formData.append('image', this.selectedFile);
+        if (this.selectedFile) {
+            formData.append('image', this.selectedFile);
+        }
 
         this.employeeForm.patchValue({
             addressDto: this.address
@@ -131,11 +134,13 @@ export class EmployeeEdit implements OnInit{
         this.http.put(`http://localhost:8080/employees/${id}`, formData)
             .subscribe({
                 next: res => {
-                    console.log('Employee saved successfully', res);
+                    console.log('Employee updated successfully', res);
+                    this.notification.success('Employee updated successfully');
                     this.router.navigate([`/employees/${res}`]);
                 },
                 error: err => {
-                    console.error('Error saving employee', err);
+                    console.error('Failed Update', err);
+                    this.notification.error(err.error?.message || 'Save failed');
                 }
             });
     }

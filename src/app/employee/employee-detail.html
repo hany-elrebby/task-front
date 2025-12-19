@@ -8,6 +8,13 @@
             </div>
             <mat-card-title>{{ employee.name }}</mat-card-title>
             <mat-card-subtitle>Code: {{ employee.code }}</mat-card-subtitle>
+            <span class="example-spacer"></span>
+            <button mat-icon-button color="primary" (click)="updateEmployee(employee.id)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteEmployee(employee.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
         </mat-card-header>
 
         <mat-divider></mat-divider>

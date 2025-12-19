@@ -1,7 +1,7 @@
 mat-toolbar {
     background-color: white;
     border: 1px #eeeded solid;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 .example-spacer {
     flex: 1 1 auto;
@@ -11,6 +11,6 @@ mat-toolbar {
 }
 .link a {
     text-decoration: none;
-    color: black;
+    color: #860c86;
     font-size: 15px;
 }

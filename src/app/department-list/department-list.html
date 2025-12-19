@@ -1,11 +1,18 @@
-<div class="searchContainer">
-    <mat-form-field appearance="outline">
-        <mat-icon matPrefix class="search-icon">search</mat-icon>
-        <input placeholder="Search..." matInput (keyup)="applyFilter($event)" />
-    </mat-form-field>
-</div>
-
 <div class="container">
+    <div class="searchContainer">
+        <mat-form-field appearance="outline">
+            <mat-icon matPrefix class="search-icon">search</mat-icon>
+            <input placeholder="Search..." matInput (keyup)="applyFilter($event)" />
+        </mat-form-field>
+        <span class="example-spacer"></span>
+        <div>
+            <a routerLink="/departments/add" mat-icon-button>
+                <mat-icon>
+                    add
+                </mat-icon>
+            </a>
+        </div>
+    </div>
     <table mat-table [dataSource]="departments" class="mat-elevation-z8 demo-table">
 
         <ng-container matColumnDef="id">

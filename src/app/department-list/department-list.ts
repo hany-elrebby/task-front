@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatTableModule} from '@angular/material/table';
 import {Department} from '../model/Department';
 
@@ -17,7 +17,8 @@ import {Department} from '../model/Department';
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        RouterLink
     ],
   templateUrl: './department-list.html',
   styleUrl: './department-list.css',

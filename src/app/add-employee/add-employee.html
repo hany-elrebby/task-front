@@ -1,9 +1,12 @@
 <div class="container">
-    <h2>Add Employee</h2>
     <form [formGroup]="employeeForm" (submit)="saveEmployee()">
+        <div class="header">
+            <h2>Add Employee</h2>
+        </div>
         <div class="username">
-            <div class="field">
+            <div class="field" style="margin-right: 70px;">
                 <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
                     <input matInput
                            formControlName="name"
                            placeholder="Name"
@@ -17,6 +20,7 @@
             </div>
             <div class="field">
                 <mat-form-field appearance="outline">
+                    <mat-label>Code</mat-label>
                     <input matInput
                            formControlName="code"
                            placeholder="Code"
@@ -30,8 +34,9 @@
             </div>
         </div>
         <div class="username">
-            <div class="field">
+            <div class="field" style="margin-right: 70px;">
                 <mat-form-field appearance="outline">
+                    <mat-label>Number</mat-label>
                     <input matInput
                            type="number"
                            formControlName="salary"
@@ -46,6 +51,7 @@
             </div>
             <div class="field">
                 <mat-form-field appearance="outline">
+                    <mat-label>Mobile</mat-label>
                     <input matInput
                            formControlName="mobile"
                            placeholder="Mobile"
@@ -59,34 +65,38 @@
             </div>
         </div>
 
-        <div class="field">
-            <mat-form-field appearance="outline">
-                <mat-label>Select Department</mat-label>
-                <mat-select formControlName="departmentId">
-                    @for (department of departments; track department.id) {
-                        <mat-option [value]="department.id">{{department.name}}</mat-option>
+        <div class="username">
+            <div class="field" style="margin-right: 70px;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Department</mat-label>
+                    <mat-select formControlName="departmentId">
+                        @for (department of departments; track department.id) {
+                            <mat-option [value]="department.id">{{department.name}}</mat-option>
+                        }
+                    </mat-select>
+                    @if (employeeForm.get('departmentId')?.invalid || employeeForm.get('departmentId')?.touched ) {
+                        <mat-error>
+                            Department is required.
+                        </mat-error>
                     }
-                </mat-select>
-                @if (employeeForm.get('departmentId')?.invalid || employeeForm.get('departmentId')?.touched ) {
-                    <mat-error>
-                        Department is required.
-                    </mat-error>
-                }
-            </mat-form-field>
+                </mat-form-field>
+            </div>
+            <div class="field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput
+                           placeholder="State, City, Street"
+                           (input)="onAddressInput($event)"
+                    />
+                    @if (employeeForm.get('addressDto')?.invalid || employeeForm.get('addressDto')?.touched ) {
+                        <mat-error>
+                            Address is required.
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
         </div>
-        <div class="field">
-            <mat-form-field appearance="outline">
-                <input matInput
-                       placeholder="State, City, Street"
-                       (input)="onAddressInput($event)"
-                />
-                @if (employeeForm.get('addressDto')?.invalid || employeeForm.get('addressDto')?.touched ) {
-                    <mat-error>
-                        Address is required.
-                    </mat-error>
-                }
-            </mat-form-field>
-        </div>
+
         <div class="field">
             <input
                 type="file"
@@ -95,10 +105,6 @@
                 accept="image/*"
                 (change)="onFileSelected($event)"
             />
-            <button mat-raised-button color="primary" (click)="fileInput.click()">
-                <mat-icon>upload</mat-icon>
-                Choose Image
-            </button>
             @if (employeeForm.get('image')?.invalid || employeeForm.get('image')?.touched ) {
                 <mat-error>
                     Image is required.
@@ -106,9 +112,24 @@
             }
         </div>
 
+        <div class="header username">
+            <div class="field" style="margin-right: 70px;">
+                <button style="background: #727070" class="button" mat-flat-button color="primary"
+                        (click)="fileInput.click()">
+                    <mat-icon>upload</mat-icon>
+                    Choose Image
+                </button>
+            </div>
+            <div class="field">
+                <button mat-flat-button
+                        class="button" >
+                    Save
+                </button>
+            </div>
+
+        </div>
 
 
-        <button [disabled]="employeeForm.invalid" class="button" mat-flat-button>Save</button>
+
     </form>
 </div>
-<p>add-employee works!</p>
