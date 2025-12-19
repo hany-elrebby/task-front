@@ -32,12 +32,12 @@ export class EmployeeList implements OnInit {
 
     updateEmployee(id: number) {
         console.log('Update', id);
-        this.router.navigate(['http://localhost:8080/employees/'+id]);
+        this.router.navigate(['/employees/'+id]);
     }
 
     deleteEmployee(id: number) {
         console.log('Delete', id);
-        this.http.delete(`http:/${id}`).subscribe(() => {
+        this.http.delete(`http://localhost:8080/employees/${id}`).subscribe(() => {
             console.log('Deleting employee with ', id);
         })
     }

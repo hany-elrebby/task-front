@@ -9,7 +9,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 
 @Component({
-  selector: 'app-employee',
+    selector: 'app-employee',
+    standalone: true,
     imports: [
         MatCardModule,
         MatDividerModule,
@@ -44,19 +45,18 @@ export class EmployeeDetails implements OnInit {
         this.route.paramMap.subscribe(params => {
             const id = params.get('id');
             if (id) {
-                this.loadEmployee(id);
+                this.loadEmployee(+id);
             }
         });
     }
 
-    loadEmployee(id: string | number) {
-        this.http.get<any>(`http://localhost:8080/employees/${id}`)
+    loadEmployee(id: number): void {
+        this.http.get<Employee>(`http://localhost:8080/employees/${id}`)
             .subscribe(res => {
-                this.employee = res as Employee;
-
-                if (res.image) {
-                    this.imageSource = `data:image/jpeg;base64,${res.image}`;
-                }
+                this.employee = res;
+                this.imageSource = res.image
+                    ? `data:image/jpeg;base64,${res.image}`
+                    : undefined;
             });
     }
 }
