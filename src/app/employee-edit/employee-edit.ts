@@ -16,7 +16,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {Notification} from '../notification';
 
 @Component({
-  selector: 'app-employee-edit',
+  selector: 'app-employee-detail-edit',
     imports: [
         FormsModule,
         MatButton,

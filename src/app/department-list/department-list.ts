@@ -32,7 +32,11 @@ export class DepartmentList implements OnInit {
 
     updateDepartment(id: number) {
         console.log('Update', id);
-        this.router.navigate(['/departments/'+id]);
+        this.router.navigate(['/departments/edit/'+id]);
+    }
+
+    openDetails(id: number) {
+        this.router.navigate(['/departments', id]);
     }
 
     deleteDepartment(id: number) {

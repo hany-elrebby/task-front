@@ -10,7 +10,7 @@ import {Router, RouterLink} from '@angular/router';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-employee-list',
+  selector: 'app-employee-detail-list',
     imports: [
         MatTableModule,
         MatFormFieldModule,
@@ -32,17 +32,17 @@ export class EmployeeList implements OnInit {
 
     updateEmployee(id: number) {
         console.log('Update', id);
-        this.router.navigate(['/employees/'+id]);
+        this.router.navigate(['/employees/edit/'+id]);
     }
 
     deleteEmployee(id: number) {
         console.log('Delete', id);
         this.http.delete(`http://localhost:8080/employees/${id}`).subscribe(() => {
-            console.log('Deleting employee with ', id);
+            console.log('Deleting employee-detail with ', id);
         })
     }
     openDetails(id: number) {
-        this.router.navigate(['/employees', id]);
+        this.router.navigateByUrl(`/employees/${id}`);
     }
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;

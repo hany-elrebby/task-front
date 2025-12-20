@@ -4,7 +4,7 @@ import {DepartmentDetail} from './department/department';
 import {DepartmentList} from './department-list/department-list';
 import {AddEmployee} from './add-employee/add-employee';
 import {EmployeeList} from './employee-list/employee-list';
-import {EmployeeDetails} from './employee/employee-detail';
+import {EmployeeDetail} from './employee-detail/employee-detail';
 import {EmployeeEdit} from './employee-edit/employee-edit';
 import {Home} from './home/home';
 
@@ -30,7 +30,7 @@ export const routes: Routes = [
         path: 'employees/add',
     },
     {
-        component: EmployeeDetails,
+        component: EmployeeDetail,
         path: 'employees/:id',
     },
     {

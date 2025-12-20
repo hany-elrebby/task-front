@@ -15,7 +15,7 @@ import {Route} from '@angular/router';
 import { Router } from '@angular/router';
 import {Notification} from '../notification';
 @Component({
-  selector: 'app-add-employee',
+  selector: 'app-add-employee-detail',
     imports: [
         FormsModule,
         MatButton,

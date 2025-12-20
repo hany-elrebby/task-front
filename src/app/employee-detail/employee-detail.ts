@@ -7,9 +7,11 @@ import {Employee} from '../model/Employee';
 import {DatePipe, DecimalPipe} from '@angular/common';
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
+import {filter, switchMap} from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
-    selector: 'app-employee',
+    selector: 'app-employee-detail',
     standalone: true,
     imports: [
         MatCardModule,
@@ -22,11 +24,11 @@ import {MatIconButton} from "@angular/material/button";
   templateUrl: './employee-detail.html',
   styleUrl: './employee-detail.css',
 })
-export class EmployeeDetails implements OnInit {
-    employee?: Employee
+export class EmployeeDetail implements OnInit {
+    employee!: Employee
     imageSource?: string;
 
-    constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
+    constructor(private changeDetection: ChangeDetectorRef, private route: ActivatedRoute, private http: HttpClient, private router: Router) {
     }
 
     updateEmployee(id: number) {
@@ -37,26 +39,26 @@ export class EmployeeDetails implements OnInit {
     deleteEmployee(id: number) {
         console.log('Delete', id);
         this.http.delete(`employees/${id}`).subscribe(() => {
-            console.log('Deleting employee with ', id);
+            console.log('Deleting employee-detail with ', id);
         })
     }
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe(params => {
-            const id = params.get('id');
-            if (id) {
-                this.loadEmployee(+id);
-            }
-        });
-    }
-
-    loadEmployee(id: number): void {
-        this.http.get<Employee>(`http://localhost:8080/employees/${id}`)
+        this.route.paramMap
+            .pipe(
+                filter(params => params.has('id')),
+                switchMap(params => {
+                    const id = Number(params.get('id'));
+                    return this.http.get<Employee>(`http://localhost:8080/employees/${id}`);
+                })
+            )
             .subscribe(res => {
                 this.employee = res;
                 this.imageSource = res.image
                     ? `data:image/jpeg;base64,${res.image}`
                     : undefined;
+
+                this.changeDetection.detectChanges();
             });
     }
 }
